@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="httpSolrServer" class="org.apache.solr.client.solrj.impl.HttpSolrClient">
+        <constructor-arg value="http://192.168.0.5:8983/solr/hadith"/>
+        <!--<constructor-arg value="${${SolrCollectionKey}}"/>-->
+    </bean>
+
+    <!-- <bean id="solrServerFactory" class="com.idehgostar.makhsan.core.solr.SolrServerFactory"/> -->
+
+    <!--
+
+        <bean id="embeddedSolrServer1" factory-bean="solrServerFactory" factory-method="getEmbeddedSolrServer">
+            <constructor-arg name="solrHome" value="192.168.0.7\\solr\\solr-4.1.0\\example\\solr"/>
+            <constructor-arg name="collectionName" value="collection1"/>
+        </bean>
+
+        <bean id="embeddedSolrServer2" factory-bean="solrServerFactory" factory-method="getEmbeddedSolrServer">
+            <constructor-arg name="solrHome" value="/home/hs/solr/solr-4.1.0/example/solr/"/>
+            <constructor-arg name="collectionName" value="collection1"/>
+        </bean>
+
+    -->
+
+    <!--<bean name="solrFacade" class="com.idehgostar.makhsan.core.solr.hadith.NarratedHadithSolrFacadeImpl">-->
+    <!--<constructor-arg ref="httpSolrServer"/>-->
+    <!--&lt;!&ndash;<property name="similarityMaxResult" value="${${SolrSimilarityMaxResultKey}}"/>&ndash;&gt;-->
+    <!--</bean>-->
+
+    <!--<bean name="solrHadithSearch" class="com.idehgostar.makhzanhzan.core.solr.hadith.SolrNarratedHadithSearch" scope="prototype">-->
+    <!--<property name="maxResultLimit" value="100000"/>-->
+    <!--&lt;!&ndash;<property name="maxResultLimit" value="${${SolrMaxResultLimitKey}}"/>&ndash;&gt;-->
+    <!--<property name="solrFacade" ref="solrFacade" />-->
+    <!--</bean>-->
+
+    <!--<bean name="tagTranslationFileStream" class="java.io.FileInputStream">-->
+    <!--&lt;!&ndash;<constructor-arg type="java.lang.String" value="#{servletContext.getRealPath('')}/WEB-INF/SearchTagTranslation.csv"/>&ndash;&gt;-->
+    <!--<constructor-arg type="java.lang.String" value="${${SolrTagTranslationFileKey}}"/>      &lt;!&ndash;just for batch works where servletContext is not available &ndash;&gt;-->
+    <!--</bean>-->
+
+    <!--<bean name="hadithQueryBuilder" class="HadithQueryBuilder">-->
+    <!--<constructor-arg>-->
+    <!--<map>-->
+    <!--<entry key="متن" value="text"/>-->
+    <!--</map>-->
+    <!--</constructor-arg>-->
+    <!--<property name="tagIdentifier" value=":"></property>-->
+    <!--&lt;!&ndash;<property name="tagTranslationMapper" ref="tagTranslationFileStream"/>&ndash;&gt;-->
+    <!--<property name="defaultOperator" value="AND"/>-->
+    <!--<property name="debugMode" value="false"/>-->
+    <!--<property name="defaultTag" value="text"/>-->
+    <!--</bean>-->
+
+
+    <!--<bean name="hadithQueryParser" class="com.idehgostar.makhsan.services.HadithQueryParser">-->
+    <!--<property name="fieldMapper">-->
+    <!--<map>-->
+    <!--<entry key="ریشه" value="text_root"></entry>-->
+    <!--<entry key="عبارت" value="text"></entry>-->
+    <!--<entry key="سوره" value="sooreh"></entry>-->
+    <!--<entry key="آیه" value="aye"></entry>-->
+    <!--<entry key="ایه" value="aye"></entry>-->
+    <!--</map>-->
+    <!--</property>-->
+    <!--<property name="defaultField" value="text"/>-->
+    <!--</bean>-->
+
+</beans>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://www.springframework.org/schema/security"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <http auto-config="true">
+        <intercept-url pattern="/**" requires-channel="http"/>
+        <csrf disabled="true"/>
+    </http>
+
+    <authentication-manager alias="_authenticationManager">
+        <authentication-provider user-service-ref="dummyUserDetailsService"/>
+    </authentication-manager>
+
+    <user-service id="dummyUserDetailsService">
+        <user name="admin" password="admin1392" authorities="ROLE_USER, ROLE_ADMIN"/>
+    </user-service>
+
+    <beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+    <beans:bean id="authenticationInfoExtractor" class="com.idehgostar.makhsan.core.auth.AuthenticationInfoExtractor"/>
+    <beans:bean id="analyticsRecordFilter" class="ir.rastech.analytics.analyticsFilter.AnalyticsRecordFilter"/>
+    <beans:bean id="tokenManager" class="com.idehgostar.makhsan.core.auth.TokenManager">
+        <beans:constructor-arg ref="cipherUtils"/>
+    </beans:bean>
+    <beans:bean id="cipherUtils" class="com.idehgostar.makhsan.core.encryption.CipherUtils"/>
+
+
+</beans:beans>

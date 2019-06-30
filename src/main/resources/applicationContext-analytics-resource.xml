@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <!--<property name="properties" ref="configFactoryBean"/>-->
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc-postgres.properties</value>
+                <!--<value>classpath:system-config-keys.properties</value>-->
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean name="configFactoryBean" class="org.springmodules.commons.configuration.CommonsConfigurationFactoryBean">-->
+    <!--<constructor-arg ref="configDatabaseConfiguration"/>-->
+    <!--</bean>-->
+
+    <!--<bean name="configDatabaseConfiguration" class="core.utils.FillerAwareDatabaseConfiguration">-->
+    <!--<constructor-arg type="javax.sql.DataSource" ref="configDataSource"/>-->
+    <!--<constructor-arg index="1" value="system_config"/>-->
+    <!--<constructor-arg index="2" value="name"/>-->
+    <!--<constructor-arg index="3" value="value"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="configDataSource" class="core.utils.ConfigurationDataSourceFactory" factory-method="createDataSource">-->
+    <!--<constructor-arg type="java.lang.String" value="jdbc.properties"/>-->
+    <!--</bean>-->
+    <bean id="environmentConfig" class="EnvironmentConfig"/>
+    <bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
+        <property name="baselineOnMigrate" value="true"/>
+        <property name="baselineVersionAsString" value="1.0.1"/>
+        <property name="locations" value="classpath:com.idehgostar.makhsan.domain.flyway"/>
+        <property name="validateOnMigrate" value="false"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="#{environmentConfig.databasePassword}"/>
+        <property name="poolPreparedStatements" value="true"/>
+        <property name="defaultAutoCommit" value="true"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+          depends-on="flyway">
+        <property name="persistenceUnitName" value="jpaSettings"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">validate</prop>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.ejb.naming_strategy">com.idehgostar.jpam.util.MyNamingStrategy</prop>
+                <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
+                <prop key="hibernate.default_batch_fetch_size">256</prop>
+                <prop key="hibernate.jdbc.batch_size">30</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <!--<prop key="hibernate.order_inserts">true</prop>-->
+
+                <!-- This depends us on hibernate-->
+                <!--<prop key="hibernate.archive.autodetection">class, hbm</prop>-->
+
+                <!-- Present in monitor project but why?-->
+                <!--<prop key="hibernate.ejb.metamodel.generation">disabled</prop>-->
+                <!--<prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</prop>-->
+                <!--<prop key="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</prop>-->
+
+                <prop key="hibernate.connection.useUnicode">true</prop>
+                <prop key="hibernate.connection.characterEncoding">utf-8</prop>
+                <prop key="hibernate.connection.createDatabaseIfNotExist">true</prop>
+                <prop key="hibernate.connection.autoReconnect">true</prop>
+
+                <!--TODO: IdTransferringMergeEventListener needed or not? decide! -->
+                <!--<prop key="hibernate.ejb.event.merge">-->
+                <!--org.springframework.orm.hibernate3.support.IdTransferringMergeEventListener-->
+                <!--</prop>-->
+
+                <!--<prop key="c3p0.min_size">0</prop>-->
+                <!--<prop key="c3p0.max_size">4</prop>-->
+                <!--<prop key="c3p0.idle_test_period">100</prop>-->
+                <!--<prop key="c3p0.timeout">100</prop>-->
+            </props>
+        </property>
+    </bean>
+
+</beans>

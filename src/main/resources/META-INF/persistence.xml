@@ -1,0 +1,16 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="http://java.sun.com/xml/ns/persistence"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+    <persistence-unit name="jpaSettings" transaction-type="RESOURCE_LOCAL">
+        <!--The exclude-unlisted-classes element is not intended for use in Java SE environments-->
+        <!--<exclude-unlisted-classes>false</exclude-unlisted-classes>-->
+
+        <class>ir.rastech.analytics.AnalyticsRecord</class>
+        <class>com.idehgostar.makhsan.core.services.ApplicationService</class>
+        <class>com.idehgostar.makhsan.core.signout.SignOutInfo</class>
+        <class>com.idehgostar.configs.systemconfig.SystemConfig</class>
+
+
+    </persistence-unit>
+</persistence>

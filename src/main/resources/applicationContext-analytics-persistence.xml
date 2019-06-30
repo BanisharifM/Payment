@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
+
+    <bean id="querySourcesUtil" class="com.idehgostar.jpam.util.QuerySourcesUtil">
+
+    </bean>
+
+    <bean id="genericDaoImpl" class="com.idehgostar.jpam.dao.GenericDaoImpl" abstract="true">
+        <!--<property name="entityManagerFactory" ref="entityManagerFactory"/>-->
+    </bean>
+
+    <bean id="analyticDao" class="ir.rastech.analytics.AnalyticsDaoImpl"/>
+    <bean id="applicationServiceDao" class="com.idehgostar.makhsan.core.services.ApplicationServiceDaoImpl"/>
+    <bean id="signOutInfoDao" class="com.idehgostar.makhsan.core.signout.SignOutInfoDaoImpl"/>
+
+
+</beans>
