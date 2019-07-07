@@ -2,7 +2,16 @@
 <module external.linked.project.id="analytics:main" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="ir.rastech" external.system.module.type="sourceSet" external.system.module.version="0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
-      <configuration />
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/../../src/main/resources/applicationContext-analytics-persistence.xml</file>
+          <file>file://$MODULE_DIR$/../../src/main/resources/applicationContext-analytics-resource.xml</file>
+          <file>file://$MODULE_DIR$/../../src/main/resources/applicationContext-analytics-security.xml</file>
+          <file>file://$MODULE_DIR$/../../src/main/resources/applicationContext-analytics-service.xml</file>
+          <file>file://$MODULE_DIR$/../../src/main/resources/applicationContext-analytics.xml</file>
+          <file>file://$MODULE_DIR$/../../src/main/resources/applicationContext-makhsan-solr.xml</file>
+        </fileset>
+      </configuration>
     </facet>
     <facet type="web" name="Web Gradle : analytics-0.1-SNAPSHOT.war">
       <configuration>
@@ -10,7 +19,7 @@
           <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/../../src/main/webapp/WEB-INF/web.xml" />
         </descriptors>
         <webroots>
-          <root url="file://E:\RastechProject\analytic\src\main\webapp" relative="/" />
+          <root url="file://C:\Users\NULL\Desktop\analytics\src\main\webapp" relative="/" />
         </webroots>
       </configuration>
     </facet>
@@ -23,8 +32,6 @@
           <option name="noReflect" value="true" />
           <option name="moduleName" value="analytics" />
           <option name="jvmTarget" value="1.8" />
-          <option name="addCompilerBuiltIns" value="true" />
-          <option name="loadBuiltInsFromDependencies" value="true" />
           <option name="languageVersion" value="1.2" />
           <option name="apiVersion" value="1.2" />
           <option name="pluginOptions">
@@ -52,6 +59,16 @@
             <ArgumentParseErrors />
           </option>
         </compilerArguments>
+      </configuration>
+    </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <datasource-mapping>
+          <factory-entry name="jpaSettings" />
+        </datasource-mapping>
+        <naming-strategy-map />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/../../src/main/resources/META-INF/persistence.xml" />
       </configuration>
     </facet>
   </component>

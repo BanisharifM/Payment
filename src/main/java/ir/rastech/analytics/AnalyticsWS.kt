@@ -26,14 +26,12 @@ class AnalyticsWS : BaseWS() {
     fun receiveRequests(@Context request: HttpServletRequest,
                         recordViews: ArrayList<AnalyticsRecordView>): Response {
 
-
         if (analyticsManager.validateRequest(request.getAttribute("userPermissions") as Set<String>)) {
             analyticsManager.saveAnalyticReportArray(recordViews)
             return Response.ok(SimpleResponse(SimpleResponse.Status.Success, "done")).build()
         } else {
             return Response.status(403).entity(SimpleResponse(SimpleResponse.Status.Failed, "faild")).build()
         }
-
     }
 
     @GET
@@ -46,8 +44,7 @@ class AnalyticsWS : BaseWS() {
             return Response.ok(anal).build()
 
         } catch (e: IOException) {
-            return Response.status(403).entity(SimpleResponse(SimpleResponse.Status.Failed, "faild")).build()
+            return Response.status(403).entity(SimpleResponse(SimpleResponse.Status.Failed, e.message)).build()
         }
     }
-
 }

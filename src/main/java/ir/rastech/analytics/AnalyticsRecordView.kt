@@ -1,6 +1,9 @@
 package ir.rastech.analytics
 
+import java.text.SimpleDateFormat
 import java.util.*
+import javax.servlet.ServletRequest
+import javax.servlet.http.HttpServletRequest
 import kotlin.collections.HashMap
 
 class AnalyticsRecordView {
@@ -20,12 +23,9 @@ class AnalyticsRecordView {
 
     }
 
-    constructor()
-    constructor(UserId: String, Url: String) {
-        userId = UserId
-        url = Url
-    }
+    constructor(){
 
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -58,6 +58,4 @@ class AnalyticsRecordView {
         result = 31 * result + requestProperty.hashCode()
         return result
     }
-
-
 }

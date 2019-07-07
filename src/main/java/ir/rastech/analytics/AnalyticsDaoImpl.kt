@@ -7,7 +7,6 @@ import javax.persistence.Query
 
 class AnalyticsDaoImpl : GenericDaoImpl<AnalyticsRecord, String>(AnalyticsRecord::class.java), AnalyticsDao {
 
-
     @Suppress("UNCHECKED_CAST")
     @Throws(AnalyticsRecordLoadException::class)
     override fun loadByUserId(userId: String): ArrayList<AnalyticsRecord> {

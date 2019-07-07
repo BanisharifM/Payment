@@ -15,13 +15,11 @@ class AnalyticsManagerImpl : GenericManagerImpl<AnalyticsRecord, String>, Analyt
     @Autowired
     var analyticDao: AnalyticsDao
 
-
     var userAnalyticsRecord = AnalyticsRecord()
 
     constructor(genericdao: GenericDao<AnalyticsRecord, String>) : super(genericdao) {
         analyticDao = genericdao as AnalyticsDao
     }
-
 
     @Throws(AnalyticsRecordCreationException::class)
     override fun create_user_analytics(recordView: AnalyticsRecordView) {

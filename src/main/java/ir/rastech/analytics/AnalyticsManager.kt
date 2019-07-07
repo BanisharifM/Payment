@@ -6,24 +6,6 @@ import ir.rastech.analytics.Exception.AnalyticsRecordLoadException
 
 interface AnalyticsManager : GenericManager<AnalyticsRecord, String> {
 
-    /**
-     * creates a user
-     *
-     * @param userId
-     * @param url
-     * @param platform
-     * @param service
-     * @param date
-     * @param durationInS
-     * @param responseTimeInM
-     * @param userProperty
-     * @param requestProperty
-     * @param
-     *
-     * @return
-     * @throws AnalyticsRecordCreationException
-     * @throws InvalidParameterException
-     */
 
     @Throws(AnalyticsRecordCreationException::class)
     fun create_user_analytics(recordView: AnalyticsRecordView)

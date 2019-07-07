@@ -7,7 +7,7 @@
         <!--<property name="properties" ref="configFactoryBean"/>-->
         <property name="locations">
             <list>
-                <value>classpath:jdbc-postgres.properties</value>
+                <value>classpath:jdbc.properties</value>
                 <!--<value>classpath:system-config-keys.properties</value>-->
             </list>
         </property>

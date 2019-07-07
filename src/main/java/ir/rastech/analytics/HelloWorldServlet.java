@@ -23,9 +23,6 @@ public class HelloWorldServlet extends HttpServlet {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-       /* Translation rt = new Translation();
-        em.persist(rt);*/
-
         em.getTransaction().commit();
         em.close();
     }

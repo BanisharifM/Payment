@@ -19,7 +19,7 @@ class AnalyticTest : WithJettyTest {
     constructor() {
         test.userId = "56"
         test.url = "/test"
-        test.platform = "ioTokendatas"
+        test.platform = "Windows"
         test.service = "chom!"
         test.date = Date(13760626)
         test.durationInS = 189
@@ -37,8 +37,10 @@ class AnalyticTest : WithJettyTest {
 
         val userId: String = "56"
 
+        val platforms = arrayOf("windows chrome","mac firefox","x11 opr","android opera","iphone safari")
+
         for (i in 1..10)
-            api.SubmitRecords(array, token).execute()
+            api.SubmitRecordsTest(platforms[i%5],array, token).execute()
 
         for (i in 1..10)
             api.loadUserAnalytics(userId, token).execute()
@@ -48,20 +50,49 @@ class AnalyticTest : WithJettyTest {
         assertSuccess(execute)
         execute.body().let {
             Assert.assertEquals(10, it.size)
+
+            var windowsOS=0
             it.forEach {
                 Assert.assertEquals(test, it.also { it.id = null })
+
+                println(it.platform)
+
+                if(it.platform.equals("Windows"))
+                    windowsOS++
             }
+            Assert.assertEquals(10,windowsOS)
         }
-
-
+        Thread.sleep(6000)
         val execute2 = api.loadUserAnalytics("7", token).execute()
         assertSuccess(execute2)
         execute2.body().let {
             Assert.assertEquals(20, it.size)
+
+            var windowsOS=0
+            var macOS=0
+            var x11OS=0
+            var androidOS=0
+            var iphoneOS=0
+
+            it.forEach{
+                when(it.platform){
+                    "Windows" -> windowsOS++
+                    "Mac" -> macOS++
+                    "Unix" ->x11OS++
+                    "Android" ->androidOS++
+                    "IPhone" -> iphoneOS++
+                }
+            }
+
+            Assert.assertEquals(2,windowsOS)
+            Assert.assertEquals(2,macOS)
+            Assert.assertEquals(2,x11OS)
+            Assert.assertEquals(2,androidOS)
+            Assert.assertEquals(2,iphoneOS)
+
             Assert.assertEquals(10, it.filter { it.url == "http://localhost:5718/rest/analytics/createAnalytic" }.size)
             Assert.assertEquals(10, it.filter { it.url == "http://localhost:5718/rest/analytics/loadUserAnalytics" }.size)
         }
 
     }
-
 }
